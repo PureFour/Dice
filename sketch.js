@@ -12,6 +12,7 @@ function draw() {
   background(53, 101, 77);
   showDiceGrid();
   showThrowButton();
+  showCalculatedPoints();
   dice.forEach((el) => el.show());
 }
 
@@ -44,4 +45,11 @@ const showThrowButton = () => {
   textSize(20);
   let count = (throwCounter % 3) + 1;
   text("Throw " + count, width / 2 - 40, 380);
+};
+
+const showCalculatedPoints = () => {
+  fill(255);
+  textSize(30);
+  let calculatedPoints = calculatePoints(dice);
+  text("Points " + calculatedPoints, 420, 100);
 };

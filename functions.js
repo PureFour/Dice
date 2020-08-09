@@ -6,9 +6,8 @@ const getRandomDiceValue = () => {
 
 const throwDice = (dice) => {
   if (dice.length === 0 || allMarked(dice) || throwCounter % 3 == 0) {
-    console.log("dice pushed!");
     for (let i = 0; i < 6; i++) {
-      dice.push(new Dice(150 + i * 110, 150, 100));
+      dice.splice(i, 1, new Dice(150 + i * 110, 150, 100));
     }
     throwCounter++;
   } else {
@@ -33,9 +32,14 @@ const reThrowNotMarked = (dice) => {
 
 const mouseHitsObject = (x, y, width, height) => {
   return (
-    mouseX >= x &&
-    mouseX < x + width &&
-    mouseY >= y &&
-    mouseY < y + height
+    mouseX >= x && mouseX < x + width && mouseY >= y && mouseY < y + height
   );
+};
+
+const calculatePoints = (dice) => {
+  let calculatedPoints = dice
+    .filter((dice) => dice.marked)
+    .map((dice) => dice.value)
+    .reduce((prev, next) => prev + next, 0);
+  return throwCounter % 3 === 1 ? calculatedPoints * 2 : calculatedPoints; 
 };
