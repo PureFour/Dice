@@ -30,7 +30,7 @@ function touchStarted() {
 }
 
 const showDiceGrid = () => {
-  for (let i = 0; i < 6; i++) {
+  for (let i = 0; i < DICE_COUNT; i++) {
     rect(150 + i * 110, 150, 100, 100);
     noFill();
     stroke(255);
@@ -43,7 +43,7 @@ const showThrowButton = () => {
   rect(ThrowButton.x, ThrowButton.y, ThrowButton.width, ThrowButton.height, ThrowButton.roundRadius);
   fill(255);
   textSize(20);
-  let count = (throwCounter % 3) + 1;
+  let count = (throwCounter % THROWS_COUNT) + 1;
   text("Throw " + count, width / 2 - 40, 380);
 };
 

@@ -1,12 +1,12 @@
 let throwCounter = 0;
 
 const getRandomDiceValue = () => {
-  return Math.floor(Math.random() * 6) + 1;
+  return Math.floor(Math.random() * DICE_COUNT) + 1;
 };
 
 const throwDice = (dice) => {
-  if (dice.length === 0 || allMarked(dice) || throwCounter % 3 == 0) {
-    for (let i = 0; i < 6; i++) {
+  if (dice.length === 0 || allMarked(dice) || throwCounter % THROWS_COUNT == 0) {
+    for (let i = 0; i < DICE_COUNT; i++) {
       dice.splice(i, 1, new Dice(150 + i * 110, 150, 100));
     }
     throwCounter++;
@@ -41,5 +41,5 @@ const calculatePoints = (dice) => {
     .filter((dice) => dice.marked)
     .map((dice) => dice.value)
     .reduce((prev, next) => prev + next, 0);
-  return throwCounter % 3 === 1 ? calculatedPoints * 2 : calculatedPoints; 
+  return throwCounter % THROWS_COUNT === 1 ? calculatedPoints * 2 : calculatedPoints; 
 };
