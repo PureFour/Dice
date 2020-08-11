@@ -1,5 +1,5 @@
-//TODO
 var eachDiceCount = [0, 0, 0, 0, 0, 0];
+var schoolBonuses = [0, 0];
 
 const calculateEachDiceCount = (diceValues) => {
   eachDiceCount.fill(0);
@@ -94,17 +94,51 @@ const threePairs = () => {
   return pairsCount ? 0 : chance();
 };
 
-const school = (count) => {
-  log('count: ' + count);
-  const fourOfKindValue = fourOfKind();
+const school = (number, columnNumber) => {
+  const index = DICE_MAX_VALUE - number;
+  const numberCount = eachDiceCount[index];
 
-  if (fourOfKindValue / 4 === count) {
-    return 0;
+  const bonusValue = columnNumber === 1 ? schoolBonuses[0] : schoolBonuses[1];
+  const requiredValue = (4 - numberCount) * number;
+
+  if (numberCount < 4 && bonusValue >= requiredValue) {
+    updateBonus(requiredValue, columnNumber);
+    return -requiredValue;
+  } else if (numberCount >= 4) {
+    return number * Math.abs((4 - numberCount));
   }
 
-  return 'x';
+  const difference = number * (4 - numberCount);
+
+  return - 50 - difference;
+}
+
+const bonus = (number, columnNumber) => {
+  calculateBonus();
+  if (columnNumber === 1) return schoolBonuses[0];
+  else if (columnNumber === 2) return schoolBonuses[1];
+
+  return 0;
+}
+
+const calculateBonus = () => {
+  let firstBonus = 0, secondBonus = 0;
+
+  for (let i = 0; i < DICE_COUNT; i++) {
+    firstBonus += currentPoints[i].value <= 0 ? 0 : currentPoints[i].value;
+    secondBonus += currentPoints2[i].value <= 0 ? 0 : currentPoints2[i].value;
+  }
+
+  schoolBonuses[0] = firstBonus;
+  schoolBonuses[1] = secondBonus;
+}
+
+const updateBonus = (requiredValue, columnNumber) => {
+  if (columnNumber === 1) {
+    schoolBonuses[0] -= requiredValue;
+  } else if (columnNumber === 2) { schoolBonuses[0] -= requiredValue }
 }
 
 const SchemeFinders = [
- school, school, school, school, school, school, 
- pair, twoPairs, threeOfKind, fourOfKind, fiveOfKind, poker, fullHouse, fourTwoZero, shelby, smallStraight, straight, threePairs, chance];
+  school, school, school, school, school, school, bonus,
+  pair, twoPairs, threeOfKind, fourOfKind, fiveOfKind, poker, fullHouse, fourTwoZero, shelby, smallStraight, straight, threePairs, chance];
