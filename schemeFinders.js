@@ -93,3 +93,18 @@ const threePairs = () => {
   });
   return pairsCount ? 0 : chance();
 };
+
+const school = (count) => {
+  log('count: ' + count);
+  const fourOfKindValue = fourOfKind();
+
+  if (fourOfKindValue / 4 === count) {
+    return 0;
+  }
+
+  return 'x';
+}
+
+const SchemeFinders = [
+ school, school, school, school, school, school, 
+ pair, twoPairs, threeOfKind, fourOfKind, fiveOfKind, poker, fullHouse, fourTwoZero, shelby, smallStraight, straight, threePairs, chance];

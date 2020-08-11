@@ -7,7 +7,7 @@ const getRandomDiceValue = () => {
 const throwDice = (dice) => {
   if (dice.length === 0 || allMarked(dice) || throwCounter % THROWS_COUNT == 0) {
     for (let i = 0; i < DICE_COUNT; i++) {
-      dice.splice(i, 1, new Dice(150 + i * 110, 150, 100));
+      dice.splice(i, 1, new Dice(150, 150 + i * 110, 100));
     }
     throwCounter++;
   } else {
