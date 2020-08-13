@@ -1,5 +1,5 @@
 const getRandomDiceValue = () => {
-  return Math.floor(Math.random() * DICE_COUNT) + 1;
+  return Math.floor(Math.random() * DICE_MAX_VALUE + 1);
 };
 
 const mouseHitsObject = (x, y, width, height) => {
