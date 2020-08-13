@@ -55,7 +55,7 @@ const fullHouse = () => {
   if (!pairValue) return 0;
   return threeOfKindValue + pairValue;
 };
-const fourPlusTwo = () => {
+const fourTwo = () => {
   const pokerValue = calculateSpecificCount(6);
   if (pokerValue) return pokerValue;
 
@@ -66,7 +66,7 @@ const fourPlusTwo = () => {
   return fourOfKindValue + pairValue;
 };
 
-const threePlusThree = () => {
+const shelby = () => {
   const pokerValue = calculateSpecificCount(6);
   if (pokerValue) return pokerValue;
 
@@ -179,4 +179,4 @@ const handleDoublePoints = (points, schemeFinder) => {
 
 const SchemeFinders = [
   school, school, school, school, school, school, bonus,
-  pair, twoPairs, threeOfKind, fourOfKind, fiveOfKind, poker, fullHouse, fourPlusTwo, threePlusThree, smallStraight, straight, threePairs, chance];
+  pair, twoPairs, threeOfKind, fourOfKind, fiveOfKind, poker, fullHouse, fourTwo, shelby, smallStraight, straight, threePairs, chance];
