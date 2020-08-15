@@ -1,22 +1,65 @@
+let client;
+let gameRunning = false;
+
 function preload() {
   roll_sound = loadSound("sound/rolling_dice_sound.wav");
 }
 
 function setup() {
   createCanvas(960, 960);
-  Table.initTableCells();
+  client = new Client();
+  client.listenMessages();
+  Table.initTable();
+  NameSubmitForm.show();
+  GameModeButtons.show();
+  ReadyButton.show();
 }
 
 function draw() {
   background(53, 101, 77);
-  ThrowButton.show();
-  Table.show();
-  Table.handleTableMouseOver();
-  Dice.showGrid();
+  if (gameRunning) {
+    ThrowButton.show();
+    OponentTableButton.show();
+    oponentTableView ? showOponentTable() : Table.show();
+    Table.handleTableMouseOver();
+    Dice.showGrid();
+  } else {
+    showLobby();
+  }
 }
 
 function touchStarted() {
-  Dice.handleClick();
-  ThrowButton.handleClick();
-  Table.handleTableClick();
+  if (gameRunning) {
+    Dice.handleClick();
+    ThrowButton.handleClick();
+    Table.handleClick();
+    OponentTableButton.handleClick();
+  }
+}
+
+const showLobby = () => {
+  const welcomeMessage = client.name ? "Welcome " + client.name + ' :)' : "Enter your name";
+  fill(255);
+  textSize(40);
+  text(welcomeMessage, 365, 100);
+
+
+  if (client.gameData.gameMode === GameMode.MULTI_PLAYER) {
+    fill(255);
+    textSize(35);
+    text("Connected players", 365, 250);
+
+    if (client.players.length <= 0) {
+      fill(0);
+      textSize(25);
+      text("Waiting for at least one player...", 350, 350);
+    }
+
+    for (let i = 0; i < client.players.length; i++) {
+      const player = client.players[i];
+      fill(player.isReady() ? 'green' : 'red');
+      textSize(25);
+      text(player.name, 370, 300 + (i * 50));
+    }
+  }
 }
