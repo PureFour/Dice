@@ -10,7 +10,7 @@ class Client {
     }
 
     initSocket = () => {
-        socket = io.connect('http://192.168.137.104:8000');
+        socket = io.connect(SERVER_URL);
     }
 
     setGameMode = (mode) => {
