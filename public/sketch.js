@@ -1,13 +1,14 @@
 let client;
 let gameRunning = false;
 
-function preload() {
-  roll_sound = loadSound("sound/rolling_dice_sound.wav");
-}
+// function preload() {
+//   roll_sound = loadSound("sound/rolling_dice_sound.wav");
+// }
 
 function setup() {
   createCanvas(960, 960);
   client = new Client();
+  client.initSocket();
   client.listenMessages();
   Table.initTable();
   NameSubmitForm.show();
@@ -57,6 +58,7 @@ const showLobby = () => {
 
     for (let i = 0; i < client.players.length; i++) {
       const player = client.players[i];
+      console.log('player: ' + JSON.stringify(player));
       fill(player.isReady() ? 'green' : 'red');
       textSize(25);
       text(player.name, 370, 300 + (i * 50));

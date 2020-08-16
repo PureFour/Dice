@@ -1,0 +1,25 @@
+{
+  "name": "dice",
+  "version": "1.0.0",
+  "description": "A realtime dice game using socketIO",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Daniel Baziak",
+  "license": "",
+  "keywords": [
+    "socket io",
+    "game",
+    "javascript",
+    "dice",
+    "p5.js"
+  ],
+  "dependencies": {
+    "p5": "^1.0.0",
+    "socket.io": "^2.2.0",
+    "express": "^4.16.4",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5"
+  }
+}

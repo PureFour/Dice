@@ -18,8 +18,8 @@ const ThrowButton = {
         if (mouseHitsObject(ThrowButton.x, ThrowButton.y, ThrowButton.width, ThrowButton.height) && canThrowDice()) {
             Dice.throw();
             Table.updateTable();
-            canLockPoint = true;
-            roll_sound.play();
+            client.gameData.canLockPoint = true;
+            // roll_sound.play();
         }
     },
     firstThrow: () => {
@@ -53,6 +53,7 @@ const GameModeButtons = { //TODO styling buttons
             singleGameModeButton.hide();
             multiGameModeButton.hide();
             client.setGameMode(GameMode.MULTI_PLAYER);
+            client.propagateName(client.name);
         })
     }
 }

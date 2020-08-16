@@ -1,7 +1,7 @@
-let firstColumn;
-let secondColumn;
-let totalSum;
-let canLockPoint;
+// let firstColumn;
+// let secondColumn;
+// let totalSum;
+// let canLockPoint;
 
 const Table = {
 
@@ -13,11 +13,11 @@ const Table = {
     },
 
     initTable: () => {
-        Table.updatePlayerVariables();
+        // Table.updatePlayerVariables();
 
         for (let i = 0; i < TABLE_CELLS_COUNT; i++) {
-            firstColumn.push(new TableCell(610, 75 + i * 35));
-            secondColumn.push(new TableCell(750, 75 + i * 35));
+            client.gameData.firstColumn.push(new TableCell(610, 75 + i * 35));
+            client.gameData.secondColumn.push(new TableCell(750, 75 + i * 35));
         }
     },
 
@@ -34,8 +34,8 @@ const Table = {
         rect(400, 50, 460, 755);
         fill(COLORS.tableTextColor);
         for (let i = 0; i < SchemeFinders.length; i++) {
-            let firstColumnCell = firstColumn[i];
-            let secondColumnCell = firstColumn[i];
+            let firstColumnCell = client.gameData.firstColumn[i];
+            let secondColumnCell = client.gameData.secondColumn[i];
             if (i < 6) {
                 textSize(24);
                 fill(0);
@@ -57,7 +57,7 @@ const Table = {
         }
 
         fill(COLORS.red);
-        text("SUM" + '\t' + ' '.repeat(27) + totalSum, 420, 770);
+        text("SUM" + '\t' + ' '.repeat(27) + client.gameData.totalSum, 420, 770);
     },
 
     updateTable: () => {
@@ -66,8 +66,8 @@ const Table = {
 
         for (let i = 0; i < SchemeFinders.length; i++) {
             if (i === 6) {
-                firstColumn[i].value = schoolBonuses[0];
-                secondColumn[i].value = schoolBonuses[1];
+                client.gameData.firstColumn[i].value = schoolBonuses[0];
+                client.gameData.secondColumn[i].value = schoolBonuses[1];
                 continue;
             }
             const schemeFinder = SchemeFinders[i];
@@ -80,20 +80,20 @@ const Table = {
             }
 
             if (ThrowButton.firstThrow()) currentValue = handleDoublePoints(currentValue, schemeFinder);
-            if (!firstColumn[i].locked) { firstColumn[i].value = currentValue; }
-            if (!secondColumn[i].locked) { secondColumn[i].value = currentValue2 ? currentValue2 : currentValue; }
+            if (!client.gameData.firstColumn[i].locked) { client.gameData.firstColumn[i].value = currentValue; }
+            if (!client.gameData.secondColumn[i].locked) { client.gameData.secondColumn[i].value = currentValue2 ? currentValue2 : currentValue; }
         }
     },
 
     handleClick: () => {
-        if (!canLockPoint || client.gameData.gameMode === GameMode.MULTI_PLAYER && !client.gameData.isMyTurn || oponentTableView) { return } //refactor!!
+        if (!client.gameData.canLockPoint || client.gameData.gameMode === GameMode.MULTI_PLAYER && !client.gameData.isMyTurn || oponentTableView) { return } //refactor!!
 
         const shift = 27;
         let moved = false;
 
         for (let i = 0; i < TABLE_CELLS_COUNT; i++) {
-            const firstColumnCell = firstColumn[i];
-            const secondColumnCell = secondColumn[i];
+            const firstColumnCell = client.gameData.firstColumn[i];
+            const secondColumnCell = client.gameData.secondColumn[i];
 
             if (i === 6) continue;
 
@@ -110,10 +110,9 @@ const Table = {
         }
 
         if (moved) {
-            totalSum = calculateColumnSum(firstColumn, 1) + calculateColumnSum(secondColumn, 2);
-            client.gameData.totalSum = totalSum;
+            client.gameData.totalSum = calculateColumnSum(client.gameData.firstColumn, 1) + calculateColumnSum(client.gameData.secondColumn, 2);
             calculateBonus();
-            canLockPoint = false;
+            client.gameData.canLockPoint = false;
             ThrowButton.resetThrow();
             client.doMove();
         }
@@ -123,18 +122,18 @@ const Table = {
         const shift = 27;
 
         for (let i = 0; i < TABLE_CELLS_COUNT; i++) {
-            const firstColumnCell = firstColumn[i];
-            const secondColumnCell = secondColumn[i];
+            const firstColumnCell = client.gameData.firstColumn[i];
+            const secondColumnCell = client.gameData.secondColumn[i];
 
             if (i === 6) continue;
             if (mouseHitsObject(firstColumnCell.x, firstColumnCell.y - shift, firstColumnCell.width, firstColumnCell.height)) {
-                firstColumn[i].color = COLORS.red;
+                client.gameData.firstColumn[i].color = COLORS.red;
             }
             else if (mouseHitsObject(secondColumnCell.x, secondColumnCell.y - shift, secondColumnCell.width, secondColumnCell.height)) {
-                secondColumn[i].color = COLORS.red;
+                client.gameData.secondColumn[i].color = COLORS.red;
             } else {
-                firstColumn[i].color = COLORS.tableTextColor;
-                secondColumn[i].color = COLORS.tableTextColor;
+                client.gameData.firstColumn[i].color = COLORS.tableTextColor;
+                client.gameData.secondColumn[i].color = COLORS.tableTextColor;
             }
         }
     }

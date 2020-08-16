@@ -135,8 +135,8 @@ const calculateBonus = () => {
   let secondBonus = 0;
 
   for (let i = 0; i < DICE_COUNT; i++) {
-    firstBonus += firstColumn[i].value <= 0 && !firstColumn[i].locked ? 0 : firstColumn[i].value;
-    secondBonus += secondColumn[i].value <= 0 && !secondColumn[i].locked ? 0 : secondColumn[i].value;
+    firstBonus += client.gameData.firstColumn[i].value <= 0 && !client.gameData.firstColumn[i].locked ? 0 : client.gameData.firstColumn[i].value;
+    secondBonus += client.gameData.secondColumn[i].value <= 0 && !client.gameData.secondColumn[i].locked ? 0 : client.gameData.secondColumn[i].value;
   }
 
   schoolBonuses[0] = firstBonus;

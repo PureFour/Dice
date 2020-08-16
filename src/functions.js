@@ -31,6 +31,10 @@ const showOponentTable = () => { //refactor!!
   const oponentSecondColumn = oponent.gameData.secondColumn;
   const oponentTotalSum = oponent.gameData.totalSum;
 
+  fill('black');
+  textSize(30);
+  text(oponent.name + ' Table', 30, 80);
+
   fill(255, 255, 200);
   rect(400, 50, 460, 755);
   fill(COLORS.tableTextColor);
