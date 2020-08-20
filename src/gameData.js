@@ -10,7 +10,7 @@ class GameData {
         this.isMyTurn = false; // refactor!!!
 
         this.totalSum = 200;
-        this.canLockPoint = true;
+        this.canLockPoint = false;
 
         this.firstColumn = [];
         this.secondColumn = [];
