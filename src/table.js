@@ -1,26 +1,23 @@
-// let firstColumn;
-// let secondColumn;
-// let totalSum;
-// let canLockPoint;
-
 const Table = {
-
-    updatePlayerVariables: () => {
-        firstColumn = client.gameData.firstColumn;
-        secondColumn = client.gameData.secondColumn;
-        totalSum = client.gameData.totalSum;
-        canLockPoint = client.gameData.canLockPoint;
-    },
-
     initTable: () => {
-        // Table.updatePlayerVariables();
-
         for (let i = 0; i < TABLE_CELLS_COUNT; i++) {
             client.gameData.firstColumn.push(new TableCell(610, 75 + i * 35));
             client.gameData.secondColumn.push(new TableCell(750, 75 + i * 35));
         }
     },
 
+
+    drawTable: () => {
+        fill(101, 116, 235);
+        rect(400, 50, 460, 209);
+        fill(255, 255, 0);
+        rect(400, 259, 460, 524);
+        for (let i = 0; i < TABLE_CELLS_COUNT; i++) {
+            const column = client.gameData.firstColumn[i];
+            fill(0);
+            rect(400, column.y + 8, 460, 1);
+        }
+    },
 
     show: () => {
         if (client.gameData.gameMode == GameMode.MULTI_PLAYER) {
@@ -30,8 +27,8 @@ const Table = {
             text("Current Player: " + name, 30, 80);
         }
 
-        fill(255);
-        rect(400, 50, 460, 755);
+        Table.drawTable();
+
         fill(COLORS.tableTextColor);
         for (let i = 0; i < SchemeFinders.length; i++) {
             let firstColumnCell = client.gameData.firstColumn[i];
@@ -57,7 +54,7 @@ const Table = {
         }
 
         fill(COLORS.red);
-        text("SUM" + '\t' + ' '.repeat(27) + client.gameData.totalSum, 420, 770);
+        text("SUM" + '\t' + ' '.repeat(27) + client.gameData.totalSum, 420, 775);
     },
 
     updateTable: () => {
