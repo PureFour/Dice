@@ -13,9 +13,22 @@ const Table = {
         }
     },
 
+
+    drawTable: () => {
+        fill(101, 116, 235);
+        rect(400, 50, 460, 209);
+        fill(255, 255, 0);
+        rect(400, 259, 460, 524);
+        for (let i = 0; i < TABLE_CELLS_COUNT; i++) {
+            const column = firstColumn[i];
+            fill(0);
+            rect(400, column.y + 8, 460, 1);
+        }
+    },
+
     show: () => {
-        fill(255);
-        rect(400, 50, 460, 755);
+        Table.drawTable();
+
         fill(COLORS.tableTextColor);
         for (let i = 0; i < SchemeFinders.length; i++) {
             let firstColumnCell = firstColumn[i] === undefined ? '' : firstColumn[i];
