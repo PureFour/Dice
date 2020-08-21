@@ -40,10 +40,14 @@ function touchStarted() {
 
 const showLobby = () => {
   const welcomeMessage = client.name ? "Welcome " + client.name + ' :)' : "Enter your name";
+  const nameConflictLabel = "This name is already taken! :(";
   fill(255);
   textSize(40);
   text(welcomeMessage, 365, 100);
 
+  fill('red');
+  textSize(20);
+  text(nameConflictWarning ? nameConflictLabel : '', 375, 130);
 
   if (client.gameData.gameMode === GameMode.MULTI_PLAYER) {
     fill(255);
@@ -58,10 +62,10 @@ const showLobby = () => {
 
     for (let i = 0; i < client.players.length; i++) {
       const player = client.players[i];
-      console.log('player: ' + JSON.stringify(player));
+      const inGameLabel = player.gameData.inGame ? " (In Game)" : '';
       fill(player.isReady() ? 'green' : 'red');
       textSize(25);
-      text(player.name, 370, 300 + (i * 50));
+      text(player.name + inGameLabel, 370, 300 + (i * 50));
     }
   }
 }

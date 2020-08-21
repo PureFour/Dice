@@ -63,12 +63,13 @@ server.on('listening', () => {
 const io = require('socket.io')(server)
 
 io.sockets.on('connection', (socket) => {
-	console.log('Client connected: ' + socket.id);
-	socket.emit('identificator', { id: socket.id });
+	const id = socket.id;
+	console.log('Client connected: ' + id);
+	socket.emit('identificator', { id: id });
 	socket.on('gameMessage', (data) => socket.broadcast.emit('gameMessage', data));
 	socket.on('disconnect', () => {
 		console.log('Client has disconnected...');
-		socket.broadcast.emit('gameMessage', new MessagePayload(MessageType.DISCONNECT, {clientId: socket.id }));
+		socket.broadcast.emit('gameMessage', new MessagePayload(MessageType.DISCONNECT, {clientId: id }));
 	});
 })
 

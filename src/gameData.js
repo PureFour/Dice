@@ -7,6 +7,7 @@ class GameData {
     constructor() { //columns etc...
         this.gameMode = GameMode.SINGLE_PLAYER;
         this.ready = false;
+        this.inGame = false;
         this.isMyTurn = false; // refactor!!!
 
         this.totalSum = 200;
